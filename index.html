@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Fany 💛</title>
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(-45deg,#ffb347,#ffd1a1,#ffe6cc,#ff9966);
+background-size:400% 400%;
+animation:fondo 20s ease infinite;
+text-align:center;
+color:#7a2e00;
+overflow-x:hidden;
+}
+
+@keyframes fondo{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* ===== INICIO ===== */
+#inicio{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+#inicio h1{
+font-size:28px;
+color:#7a2e00;
+}
+
+button{
+padding:14px 25px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+margin:10px;
+transition:.3s;
+}
+
+#si{
+background:#ff7f50;
+color:white;
+}
+
+#no{
+background:#c46a3c;
+color:white;
+position:absolute;
+}
+
+/* ===== LOGIN ===== */
+#loginSeccion{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#fff3e6;
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 30px rgba(0,0,0,0.2);
+width:90%;
+max-width:350px;
+}
+
+#loginSeccion h2{
+color:#a34700;
+}
+
+#loginSeccion input{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:1px solid #ff7f50;
+margin:15px 0;
+font-size:16px;
+}
+
+#loginSeccion button{
+width:100%;
+background:#ff7f50;
+color:white;
+}
+
+/* ===== LLUVIA ===== */
+#lluvia{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+overflow:hidden;
+display:none;
+pointer-events:none;
+}
+
+.palabra{
+position:absolute;
+font-weight:bold;
+color:#b34700;
+background:rgba(255,230,204,0.8);
+padding:5px 10px;
+border-radius:15px;
+animation:caer 8s linear forwards;
+}
+
+@keyframes caer{
+0%{transform:translateY(-100px);opacity:0;}
+100%{transform:translateY(110vh);opacity:1;}
+}
+
+/* ===== CORAZÓN ===== */
+#corazon{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+white-space:pre;
+font-family:monospace;
+font-size:20px;
+color:#cc5200;
+}
+
+/* ===== CARTA FINAL ===== */
+#cartaFinal{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:90%;
+max-width:400px;
+background:#fff3e6;
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 40px rgba(0,0,0,0.3);
+text-align:left;
+line-height:1.6;
+max-height:80vh;
+overflow-y:auto;
+color:#7a2e00;
+}
+
+.corazonFlotando{
+position:fixed;
+bottom:-20px;
+color:#ff7f50;
+font-size:18px;
+animation:flotar 6s linear infinite;
+}
+
+@keyframes flotar{
+0%{transform:translateY(0) scale(0.5);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-110vh) scale(1.2);opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+<audio id="musica" loop>
+<source src="amar.mp3" type="audio/mpeg">
+</audio>
+
+<div id="inicio">
+<h1>¿Quieres ser mi San Valentín, Fany? 💛</h1>
+<button id="si">Sí 💛</button>
+<button id="no">No 😢</button>
+</div>
+
+<div id="loginSeccion">
+<h2>Ingresa la contraseña 💛</h2>
+<input type="password" id="pass" placeholder="Contraseña">
+<button onclick="verificar()">Entrar</button>
+</div>
+
+<div id="lluvia"></div>
+<div id="corazon"></div>
+
+<div id="cartaFinal">
+<h2>Para Fany 💛</h2>
+<p id="textoCarta"></p>
+</div>
+
+<script>
+
+const si=document.getElementById("si");
+const no=document.getElementById("no");
+const musica=document.getElementById("musica");
+
+function moverNo(){
+no.style.top=Math.random()*80+"%";
+no.style.left=Math.random()*80+"%";
+si.style.transform="scale(1.1)";
+}
+
+no.addEventListener("mouseover",moverNo);
+no.addEventListener("touchstart",moverNo);
+
+si.addEventListener("click",()=>{
+musica.play();
+document.getElementById("inicio").style.display="none";
+document.getElementById("loginSeccion").style.display="block";
+});
+
+function verificar(){
+if(document.getElementById("pass").value==="tqm"){
+document.getElementById("loginSeccion").style.display="none";
+lluvia();
+}else{
+alert("Contraseña incorrecta 💔");
+}
+}
+
+function lluvia(){
+let div=document.getElementById("lluvia");
+div.innerHTML="";
+div.style.display="block";
+
+let palabras=[
+"Fany 💛","Te quiero","Eres especial",
+"Tu sonrisa ilumina","Siempre tú",
+"Me encantas","Eres increíble",
+"Gracias por existir","Abrazote 🤍"
+];
+
+for(let i=0;i<60;i++){
+let p=document.createElement("div");
+p.classList.add("palabra");
+p.innerText=palabras[Math.floor(Math.random()*palabras.length)];
+p.style.left=Math.random()*90+"vw";
+p.style.animationDelay=(Math.random()*6)+"s";
+p.style.fontSize=(16+Math.random()*12)+"px";
+div.appendChild(p);
+}
+
+setTimeout(()=>{
+div.style.display="none";
+mostrarCorazon();
+},10000);
+}
+
+function mostrarCorazon(){
+let div=document.getElementById("corazon");
+div.innerText="";
+div.style.display="block";
+
+let lineas=[
+"        FAN       FAN",
+"     FAN FAN   FAN FAN",
+"   FAN FAN FAN FAN FAN",
+"  FAN FAN FAN FAN FAN FAN",
+"   FAN FAN FAN FAN FAN",
+"     FAN FAN FAN FAN",
+"        FAN FAN FAN",
+"          FAN FAN",
+"            FAN"
+];
+
+let i=0;
+let intervalo=setInterval(()=>{
+if(i<lineas.length){
+div.innerText+=lineas[i]+"\n";
+i++;
+}else{
+clearInterval(intervalo);
+setTimeout(()=>{
+div.style.display="none";
+mostrarCarta();
+},2500);
+}
+},700);
+}
+
+function mostrarCarta(){
+let carta=document.getElementById("cartaFinal");
+carta.style.display="block";
+
+let texto=`Holaaaaaaaaaa 💛
+
+Esto es solo para ti, Fany.
+Porque eres una persona especial,
+porque iluminas más de lo que imaginas,
+y porque quería regalarte algo bonito.
+
+Gracias por existir.
+Gracias por ser tú.
+Y recuerda siempre que alguien te quiere con cariño sincero.
+
+Con mucho cariño  
+YOOOOO 💛`;
+
+let i=0;
+let elemento=document.getElementById("textoCarta");
+elemento.innerHTML="";
+
+let escribir=setInterval(()=>{
+if(i<texto.length){
+elemento.innerHTML+=texto.charAt(i);
+i++;
+}else{
+clearInterval(escribir);
+corazonesFlotando();
+}
+},20);
+}
+
+function corazonesFlotando(){
+for(let i=0;i<20;i++){
+let corazon=document.createElement("div");
+corazon.classList.add("corazonFlotando");
+corazon.innerHTML="💛";
+corazon.style.left=Math.random()*100+"vw";
+corazon.style.animationDuration=(5+Math.random()*4)+"s";
+document.body.appendChild(corazon);
+}
+}
+
+</script>
+</body>
+</html>
